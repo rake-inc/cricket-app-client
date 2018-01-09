@@ -12,7 +12,28 @@ angular.module('myApp.login', ['ngRoute'])
 
 .controller('LoginCtrl', ['$scope', '$http', '$location',function($scope, $http, $location) {
 
-
+    $scope.redirectToHome =  function (){
+        $http.defaults.headers.common.Authorization = localStorage.getItem("token");
+        $http.get('http://localhost:8081/users/users-details/').
+        then(function successCallBack(response){
+            localStorage.setItem("is_superuser",response.data[0]['is_superuser']);
+            if(response.data[0]['is_superuser']){
+                location.reload();  
+                console.log(localStorage.getItem('is_superuser'))
+                $location.path('/admin');
+            }
+            else{
+                $location.path('/view2');
+                location.reload();  
+            }
+        },
+        function errorCallBack(response){
+            console.log(response.data)
+        });
+    };
+    if (localStorage.getItem("token") !== null){
+        $scope.redirectToHome();
+    }
     $scope.submit = function() {
         $scope.username_error = '';
         $scope.password_error = '';
@@ -21,9 +42,9 @@ angular.module('myApp.login', ['ngRoute'])
         .then(function successCallBack(response) {
             $scope.username_error = '';
             $scope.password_error = '';
-            $http.defaults.headers.common['Authorization'] = 'JWT'+ ' ' + response.data['token'];
+            localStorage.setItem("token","JWT "+response.data['token']);
             console.log($http.defaults.headers.common.Authorization);
-            $location.path('/');
+            $scope.redirectToHome();
         },
         function errorCallBack(response){
             console.log(response.data)

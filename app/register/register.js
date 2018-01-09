@@ -9,8 +9,10 @@ angular.module('myApp.register', ['ngRoute'])
   });
 }])
 .controller('RegisterCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
-    if($http.defaults.headers.common.Authorization !== undefined) {
-        $location.path('/view2');
+    if(localStorage.getItem('token') !== null) {
+        if(localStorage.getItem('is_superuser')){
+            $location.path('/admin')
+        }
     }
     $scope.submit = function () {
         $scope.form['is_staff'] = false;

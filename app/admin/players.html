@@ -1,0 +1,63 @@
+<div ng-controller="PlayersCtrl">
+    <div class="container">
+        <h3  ng-hide="no_of_players > 0">Create a <a href="#!/admin/create-player">player</a></h3>
+        <div ng-show="no_of_players > 0">
+            <h2>Player Details</h2>
+            <table class="table">
+            <tr>    
+                <th>Name</th>
+                <th>Age</th>
+                <th>Zeroes</th>
+                <th>ones</th>
+                <th>twos</th>
+                <th>threes</th>
+                <th>fours</th>
+                <th>six</th>
+                <th>wickets</th>
+                <th>No. of matches</th>
+                <th>Batting Average</th>
+                <th>Bowling Average</th>
+            </tr>
+            <tr ng-repeat="player in players track by $index">
+                <td>
+                    {{player.name}}
+                </td>
+                <td>
+                    {{player.age}}
+                </td> 
+                <td>
+                    {{players_skills[$index].zeroes}}
+                </td>
+                <td>
+                    {{players_skills[$index].ones}}
+                </td>
+                <td>
+                    {{players_skills[$index].twos}}
+                </td>
+                <td>
+                    {{players_skills[$index].threes}}
+                </td>
+                <td>
+                    {{players_skills[$index].fours}}
+                </td>
+                <td>
+                    {{players_skills[$index].six}}
+                </td>
+                <td>
+                    {{players_skills[$index].wickets}}
+                </td>                
+                <td>
+                    {{players_skills[$index].total_matches}}
+                </td>
+                <td>
+                    {{players_stats[$index].batting_average}}
+                </td>
+                <td>
+                    {{players_stats[$index].bowling_average}}
+                </td>
+
+            </tr>
+            </table>
+        </div>
+    </div>
+</div>
